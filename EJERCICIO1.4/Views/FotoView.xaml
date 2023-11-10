@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EJERCICIO1._4.Views.FotoView"
+             x:Name="estaPagina"
+             xmlns:controladores="clr-namespace:EJERCICIO1._4.Controllers"
+             Title="Foto">
+
+    <ContentPage.Resources>
+        <controladores:MyUtilities x:Key="toStreamImageSource"/>
+    </ContentPage.Resources>
+
+
+    <VerticalStackLayout>
+        
+        <Image Source="{Binding Foto, Converter={StaticResource toStreamImageSource}}"
+        Aspect="AspectFill"
+        HorizontalOptions="FillAndExpand"
+        VerticalOptions="FillAndExpand"/>
+        
+        
+    </VerticalStackLayout>
+</ContentPage>

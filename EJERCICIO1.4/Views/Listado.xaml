@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EJERCICIO1._4.Views.Listado"
+             x:Name="estaPagina"
+             xmlns:controladores="clr-namespace:EJERCICIO1._4.Controllers"
+             Title="Listado de Fotos">
+
+    <ContentPage.Resources>
+        <controladores:MyUtilities x:Key="toStreamImageSource"/>
+    </ContentPage.Resources>
+
+
+
+
+    <ListView x:Name="viewListado" SelectionMode="Single" BackgroundColor="White" ItemSelected="OnItemSelected"
+    RowHeight="100">
+        
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <Grid Padding="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        
+                        <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"
+                        Source="{Binding Foto, Converter={StaticResource toStreamImageSource}}"
+                        Aspect="AspectFill"
+                        HeightRequest="100"
+                        WidthRequest="100"/>
+                        
+                        <Label Grid.Row="0" Grid.Column="1"
+                        Text="{Binding Nombre}"
+                        FontAttributes="Bold"
+                        VerticalOptions="FillAndExpand"/>
+
+                        <Label Grid.Row="1" Grid.Column="1"
+                        Text="{Binding Descripcion}"
+                        FontAttributes="Italic"
+                        VerticalOptions="FillAndExpand"/>
+                        
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+
+
+
+</ContentPage>
