@@ -22,12 +22,6 @@ public partial class CapturaDatos : ContentPage
                 try {
                     using Stream stream = await photo.OpenReadAsync();
 
-                    string fotoPath = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
-                    using FileStream localFileStream = File.OpenWrite(fotoPath);
-                    await stream.CopyToAsync(localFileStream);
-
-
-
                     using (MemoryStream memoryStream = new MemoryStream()) {
                         await stream.CopyToAsync(memoryStream);
                         fotoArray = memoryStream.ToArray();
@@ -60,6 +54,7 @@ public partial class CapturaDatos : ContentPage
             if (!fotoData.GetDatosInvalidos().Any()) {
                 await App.db.Insert(fotoData);
                 LimpiarCampos();
+                await DisplayAlert("Success", "Datos guardados", "Aceptar");
 
             } else {
                 string msj = string.Join("\n", fotoData.GetDatosInvalidos());
