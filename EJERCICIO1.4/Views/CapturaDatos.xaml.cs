@@ -22,6 +22,12 @@ public partial class CapturaDatos : ContentPage
                 try {
                     using Stream stream = await photo.OpenReadAsync();
 
+                    string fotoPath = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
+                    using FileStream localFileStream = File.OpenWrite(fotoPath);
+                    await stream.CopyToAsync(localFileStream);
+
+
+
                     using (MemoryStream memoryStream = new MemoryStream()) {
                         await stream.CopyToAsync(memoryStream);
                         fotoArray = memoryStream.ToArray();
