@@ -17,7 +17,10 @@ public partial class FotoView : ContentPage {
 	protected override void OnAppearing() {
 		base.OnAppearing();
 
-		estaPagina.BindingContext = fd;
-	}
+		//estaPagina.BindingContext = fd;
+		// Source="{Binding FotoArray, Converter={StaticResource toStreamImageSource}}"
+
+		fotoView.Source = ImageSource.FromFile(fd.FotoPath);
+    }
 
 }

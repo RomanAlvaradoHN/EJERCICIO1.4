@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 namespace EJERCICIO1._4.Models {
     public class FotoData {
         private List<string> invalidData = new List<string>();
-        private byte[] foto;
+        private byte[] fotoArray;
+        private string fotoPath;
         private string nombre;
         private string descripcion;
 
@@ -18,8 +19,9 @@ namespace EJERCICIO1._4.Models {
 
         public FotoData() { }
 
-        public FotoData(byte[] foto, string nombre, string descripcion) {
-            this.Foto = foto;
+        public FotoData(byte[] fotoArray, string fotoPath, string nombre, string descripcion) {
+            this.FotoArray = fotoArray;
+            this.FotoPath = fotoPath;
             this.Nombre = nombre;
             this.Descripcion = descripcion;
         }
@@ -40,16 +42,29 @@ namespace EJERCICIO1._4.Models {
 
 
 
-
-        [Column("Foto")]
-        public byte[] Foto {
-            get { return this.foto; }
+        [Column("FotoArray")]
+        public byte[] FotoArray {
+            get { return this.fotoArray; }
 
             set {
                 if (value != null && value.Length > 0) {
-                    this.foto = value;
+                    this.fotoArray = value;
                 } else {
-                    this.invalidData.Add("Foto");
+                    this.invalidData.Add("FotoArray");
+                }
+            }
+        }
+
+
+        [Column("FotoPath")]
+        public string FotoPath{
+            get { return this.fotoPath; }
+
+            set {
+                if (!string.IsNullOrEmpty(value)) {
+                    this.fotoPath = value;
+                } else {
+                    this.invalidData.Add("FotoPath");
                 }
             }
         }

@@ -1,10 +1,13 @@
+using EJERCICIO1._4.Controllers;
 using EJERCICIO1._4.Models;
+
 
 namespace EJERCICIO1._4.Views;
 
 public partial class CapturaDatos : ContentPage
 {
     private byte[] fotoArray;
+    private string fotoPath;
 
 
     public CapturaDatos(){
@@ -17,21 +20,21 @@ public partial class CapturaDatos : ContentPage
 
     public async void TakeAPhoto(object sender, EventArgs e) {
         if (MediaPicker.Default.IsCaptureSupported) {
+            
             FileResult photo = await MediaPicker.Default.CapturePhotoAsync();
+           
             if (photo != null) {
                 try {
-                    using Stream stream = await photo.OpenReadAsync();
 
-                    using (MemoryStream memoryStream = new MemoryStream()) {
-                        await stream.CopyToAsync(memoryStream);
-                        fotoArray = memoryStream.ToArray();
+                    using (MemoryStream ms = new MemoryStream()) {
+                        Stream st = await photo.OpenReadAsync();
+                        await st.CopyToAsync(ms);
+                        imgFoto.Source = ImageSource.FromStream(() => new MemoryStream(ms.ToArray()));
+                        fotoPath = Path.Combine(App.photosDirectory, photo.FileName);
+                        fotoArray = ms.ToArray();
                     }
 
-                    ImageSource imgSource = StreamImageSource.FromStream(() => new MemoryStream(fotoArray));
-                    imgFoto.Source = imgSource;
-
                 } catch (Exception ex) {
-                    // Manejo de excepciones
                     await DisplayAlert("Atención", ex.Message, "Aceptar");
                 }
             }
@@ -45,8 +48,16 @@ public partial class CapturaDatos : ContentPage
 
     private async void OnBtnAgregarClicked(object sender, EventArgs e) {
         try {
+
+            //Guardado del archivo de imagen en fisico.
+            using (FileStream photoFile = File.OpenWrite(fotoPath)) {
+                Stream st = new MemoryStream(fotoArray);
+                await st.CopyToAsync(photoFile);
+            }
+
             FotoData fotoData = new FotoData(
                 fotoArray,
+                fotoPath,
                 txtNombre.Text,
                 txtDescripcion.Text
             );

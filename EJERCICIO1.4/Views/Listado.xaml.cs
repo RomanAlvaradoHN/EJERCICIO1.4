@@ -13,7 +13,6 @@ public partial class Listado : ContentPage
 
 	protected override async void OnAppearing() {
 		base.OnAppearing();
-
 		viewListado.ItemsSource = await App.db.SelectAll();
 	}
 

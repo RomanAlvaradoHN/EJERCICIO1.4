@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.Maui.ApplicationModel.Permissions;
 
 namespace EJERCICIO1._4.Controllers {
     public class MyUtilities: IValueConverter {
@@ -17,6 +18,11 @@ namespace EJERCICIO1._4.Controllers {
                     byte[] bytes = value as byte[];
                     Stream stream = new MemoryStream(bytes);
                     return ImageSource.FromStream(() => stream);
+
+                case string fotoPath:
+                    return ImageSource.FromFile(fotoPath);
+
+
 
                 default: return null;
             }
