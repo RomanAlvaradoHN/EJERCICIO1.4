@@ -98,6 +98,7 @@ public partial class CapturaDatos : ContentPage
 
 
     private void LimpiarCampos() {
+        fotoArray = new byte[0];
         imgFoto.Source = null;
         txtNombre.Text = string.Empty;
         txtDescripcion.Text = string.Empty;
