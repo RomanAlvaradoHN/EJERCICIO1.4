@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 namespace EJERCICIO1._4.Models {
     public class FotoData {
         private List<string> invalidData = new List<string>();
-        private byte[] fotoArray;
-        private string fotoPath;
+        private byte[] foto;
+        private string fotoFilePath;
         private string nombre;
         private string descripcion;
 
@@ -19,9 +19,8 @@ namespace EJERCICIO1._4.Models {
 
         public FotoData() { }
 
-        public FotoData(byte[] fotoArray, string fotoPath, string nombre, string descripcion) {
-            this.FotoArray = fotoArray;
-            this.FotoPath = fotoPath;
+        public FotoData(byte[] foto, string nombre, string descripcion) {
+            this.Foto = foto;
             this.Nombre = nombre;
             this.Descripcion = descripcion;
         }
@@ -42,31 +41,24 @@ namespace EJERCICIO1._4.Models {
 
 
 
-        [Column("FotoArray")]
-        public byte[] FotoArray {
-            get { return this.fotoArray; }
+        [Column("Foto")]
+        public byte[] Foto {
+            get { return this.foto; }
 
             set {
                 if (value != null && value.Length > 0) {
-                    this.fotoArray = value;
+                    this.foto = value;
                 } else {
-                    this.invalidData.Add("FotoArray");
+                    this.invalidData.Add("Foto");
                 }
             }
         }
 
 
-        [Column("FotoPath")]
-        public string FotoPath{
-            get { return this.fotoPath; }
-
-            set {
-                if (!string.IsNullOrEmpty(value)) {
-                    this.fotoPath = value;
-                } else {
-                    this.invalidData.Add("FotoPath");
-                }
-            }
+        [Column("FotoFilePath")]
+        public string FotoFilePath{
+            get { return this.fotoFilePath; }
+            set { this.fotoFilePath = Path.Combine(App.photosDirectory, value); }
         }
 
 
@@ -78,6 +70,7 @@ namespace EJERCICIO1._4.Models {
             set {
                 if (!string.IsNullOrEmpty(value)) {
                     this.nombre = value;
+                    FotoFilePath = value;
                 } else {
                     this.invalidData.Add("Nombre");
                 }

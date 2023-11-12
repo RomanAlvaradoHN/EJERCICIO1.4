@@ -20,7 +20,7 @@ public partial class FotoView : ContentPage {
 		//estaPagina.BindingContext = fd;
 		// Source="{Binding FotoArray, Converter={StaticResource toStreamImageSource}}"
 
-		fotoView.Source = ImageSource.FromFile(fd.FotoPath);
+		fotoView.Source = ImageSource.FromFile(fd.FotoFilePath);
     }
 
 }

@@ -50,6 +50,8 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Images\camara.svg" />
+	  <None Remove="Resources\Images\guardar_ico.svg" />
+	  <None Remove="Resources\Images\lista_ico.svg" />
 	  <None Remove="Resources\Images\restart_ico.svg" />
 	</ItemGroup>
 

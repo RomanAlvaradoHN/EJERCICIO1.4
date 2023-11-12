@@ -7,8 +7,7 @@ namespace EJERCICIO1._4.Views;
 public partial class CapturaDatos : ContentPage
 {
     private byte[] fotoArray;
-    private string fotoPath;
-
+    
 
     public CapturaDatos(){
 		InitializeComponent();
@@ -30,7 +29,6 @@ public partial class CapturaDatos : ContentPage
                         Stream st = await photo.OpenReadAsync();
                         await st.CopyToAsync(ms);
                         imgFoto.Source = ImageSource.FromStream(() => new MemoryStream(ms.ToArray()));
-                        fotoPath = Path.Combine(App.photosDirectory, photo.FileName);
                         fotoArray = ms.ToArray();
                     }
 
@@ -49,25 +47,30 @@ public partial class CapturaDatos : ContentPage
     private async void OnBtnAgregarClicked(object sender, EventArgs e) {
         try {
 
+            //Valida existencia del directorio, si no existe, lo crea
             if(!Directory.Exists(App.photosDirectory)) {
                 Directory.CreateDirectory(App.photosDirectory);
             }
 
-            //Guardado del archivo de imagen en fisico.
-            using (FileStream photoFile = File.OpenWrite(fotoPath)) {
-                Stream st = new MemoryStream(fotoArray);
-                await st.CopyToAsync(photoFile);
-            }
-
+            //Instanciamos el objeto con los datos requeridos
             FotoData fotoData = new FotoData(
                 fotoArray,
-                fotoPath,
                 txtNombre.Text,
                 txtDescripcion.Text
             );
 
+
+            //Guardado en SQLite y almacenamiento. (Si uno de los datos no es valido, se lanza el alert)
             if (!fotoData.GetDatosInvalidos().Any()) {
                 await App.db.Insert(fotoData);
+
+                //Guardado del archivo de imagen en fisico.
+                string path = Path.Combine(App.photosDirectory, txtNombre.Text);
+                using (FileStream photoFile = File.OpenWrite(path)) {
+                    Stream st = new MemoryStream(fotoArray);
+                    await st.CopyToAsync(photoFile);
+                }
+
                 LimpiarCampos();
                 await DisplayAlert("Success", "Datos guardados", "Aceptar");
 

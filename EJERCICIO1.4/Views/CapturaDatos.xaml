@@ -43,12 +43,14 @@
             <Button x:Name="btnAgregar"
                     Text="Agregar"
                     Clicked="OnBtnAgregarClicked"
-                    HorizontalOptions="FillAndExpand"/>
+                    HorizontalOptions="FillAndExpand"
+                    ImageSource="guardar_ico"/>
 
             <Button x:Name="btnVerLista"
                     Text="Lista"
                     Clicked="OnBtnListaClicked"
-                    HorizontalOptions="FillAndExpand"/>
+                    HorizontalOptions="FillAndExpand"
+                    ImageSource="lista_ico"/>
         </StackLayout>
 
 
