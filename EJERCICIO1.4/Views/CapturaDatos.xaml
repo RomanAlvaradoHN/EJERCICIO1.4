@@ -5,25 +5,28 @@
              Title="Nueva Captura">
 
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Limpiar" IconImageSource="restart_ico" Clicked="OnBtnLimpiarClicked"/>
+    </ContentPage.ToolbarItems>
 
-    <StackLayout Padding="20" Spacing="5" VerticalOptions="StartAndExpand">
 
+    <StackLayout Spacing="5" Padding="20">
+
+        
         <ImageButton x:Name="imgFoto"
             Clicked="TakeAPhoto"
             Aspect="AspectFill"
             CornerRadius="5"
             HorizontalOptions="FillAndExpand"
-            VerticalOptions="StartAndExpand"
-            HeightRequest="200"
-            BackgroundColor="White"
-            />
+            VerticalOptions="FillAndExpand"
+            BackgroundColor="White"/>
 
 
 
         <Frame CornerRadius="10" Padding="5">
             <StackLayout>
                 <Label Text="Nombre" />
-                <Editor x:Name="txtNombre" VerticalOptions="FillAndExpand" />
+                <Entry x:Name="txtNombre" VerticalOptions="FillAndExpand" TextColor="BlueViolet"/>
             </StackLayout>
         </Frame>
 
@@ -31,7 +34,7 @@
         <Frame CornerRadius="10" Padding="5">
             <StackLayout>
                 <Label Text="Descripcion" />
-                <Editor x:Name="txtDescripcion" VerticalOptions="FillAndExpand" />
+                <Entry x:Name="txtDescripcion" VerticalOptions="FillAndExpand" TextColor="BlueViolet"/>
             </StackLayout>
         </Frame>
 

@@ -50,6 +50,7 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Images\camara.svg" />
+	  <None Remove="Resources\Images\restart_ico.svg" />
 	</ItemGroup>
 
 	<ItemGroup>

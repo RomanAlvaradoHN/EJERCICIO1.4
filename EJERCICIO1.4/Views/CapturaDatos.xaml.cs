@@ -49,6 +49,10 @@ public partial class CapturaDatos : ContentPage
     private async void OnBtnAgregarClicked(object sender, EventArgs e) {
         try {
 
+            if(!Directory.Exists(App.photosDirectory)) {
+                Directory.CreateDirectory(App.photosDirectory);
+            }
+
             //Guardado del archivo de imagen en fisico.
             using (FileStream photoFile = File.OpenWrite(fotoPath)) {
                 Stream st = new MemoryStream(fotoArray);
@@ -86,6 +90,10 @@ public partial class CapturaDatos : ContentPage
     }
 
 
+
+    private void OnBtnLimpiarClicked(object sender, EventArgs e) {
+        LimpiarCampos();
+    }
 
 
 
